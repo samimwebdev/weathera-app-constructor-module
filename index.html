@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Section 17 live project with api</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="text-center">Welcome to Weather Application</h1>
+
+        <p class="text-muted text-center">
+          Now you can search weather of your city
+        </p>
+        <div id="massegeWrapper"></div>
+
+        <div class="w-form">
+          <form id="form">
+            <div class="form-group">
+              <label for="country">Country</label>
+
+              <input
+                type="text"
+                class="form-control"
+                id="country"
+                placeholder="type your country to get your weather"
+              />
+              <small id="emailHelp" class="form-text text-muted"
+                >try your country first tow word for Ex:"BD"</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                aria-describedby="emailHelp"
+                placeholder="type your city to get your weather"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="button">
+              Get Weather
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header text-center" id="w-city"></div>
+
+            <ul class="list-group">
+              <li class="list-group-item text-center">
+                <span class="d-block">
+                  <img alt="" id="w-icon" />
+                </span>
+                <span id="w-feel"></span>
+              </li>
+
+              <li class="list-group-item" id="w-temp"></li>
+              <li class="list-group-item" id="w-prea"></li>
+              <li class="list-group-item" id="w-humidity"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://kit.fontawesome.com/66e3f681f2.js"></script>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

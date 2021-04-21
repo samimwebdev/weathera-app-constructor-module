@@ -1,0 +1,36 @@
+
+
+
+h1{
+    margin-top:10px;
+}
+
+
+
+form{
+    text-transform: uppercase;
+}
+
+.explicit{
+    margin-left:2px;
+   
+}
+
+
+.nerdy{
+    margin-right:2px;
+   
+}
+.data{
+
+    margin-bottom:20px;
+   font-size: 20px;
+   min-height:20px;
+}
+
+
+#nerdy:checked{
+
+ border:none;
+ 
+}
