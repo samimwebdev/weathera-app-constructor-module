@@ -5,23 +5,22 @@ const store = {
   defaultCity: "Gazipur",
   defaultCountry: "BD",
 
+  //geting data from local storage
   getLocation() {
-    if (localStorage.getItem("city") === null) {
-      this.city = this.defaultCity;
-    } else {
-      this.city = localStorage.getItem("city");
-    }
+    localStorage.getItem("city") === null
+      ? (this.city = this.defaultCity)
+      : (this.city = localStorage.getItem("city"));
 
-    if (localStorage.getItem("country") === null) {
-      this.country = this.defaultCountry;
-    } else {
-      this.country = localStorage.getItem("country");
-    }
+    localStorage.getItem("country") === null
+      ? (this.country = this.defaultCountry)
+      : (this.country = localStorage.getItem("country"));
+
     return {
       city: this.city,
       country: this.country,
     };
   },
+  // seting data to local storage
   setLocation(city, country) {
     localStorage.setItem("city", city);
     localStorage.setItem("country", country);
@@ -49,7 +48,6 @@ const ui = {
     this.city.textContent = cityName;
 
     this.icon.setAttribute("src", iconUrl);
-    // this.icon.textContent = weather.getWeather().overall_data;
 
     this.temperature.innerHTML = `Temperature: ${temp} <sup>&#8451</sup>`;
 
@@ -90,21 +88,14 @@ const ui = {
 
     icon.style.cursor = "pointer";
 
-    //     <div class="alert alert-danger" role="alert">
-    //     This is a danger alert—check it out!
-    // </div>
   },
 
   closeMassege() {
-    document
-      .querySelector("#massegeWrapper")
-      .addEventListener("click", function (e) {
-        if ((e.target.id = "icon")) {
-          e.target.parentElement.parentElement.remove();
-        }
-      });
-
-    console.log("hello");
+    document.querySelector("#massegeWrapper").addEventListener("click", (e) => {
+      if ((e.target.id = "icon")) {
+        e.target.parentElement.parentElement.remove();
+      }
+    });
   },
 };
 
@@ -137,7 +128,7 @@ const weather = {
   },
 };
 
-// //instenset the new class
+//instenset the new class
 function weatherData() {
   weather
     .getWeather()
@@ -157,19 +148,21 @@ const { city, country } = store.getLocation();
 
 weather.city = city;
 weather.country = country;
+
 document.addEventListener("DOMContentLoaded", weatherData);
 
-document.querySelector("#form").addEventListener("submit", function (e) {
+document.querySelector("#form").addEventListener("submit", (e) => {
   e.preventDefault();
 
   let country = document.querySelector("#country").value;
 
   let city = document.querySelector("#city").value;
 
+
   if (city === "" || country === "") {
     ui.setMassege("plz input nessary information");
 
-    document.querySelector("#close").addEventListener("click", function (e) {
+    document.querySelector("#close").addEventListener("click", (e) => {
       ui.closeMassege();
     });
   } else {
