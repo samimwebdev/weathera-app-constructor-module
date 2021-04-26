@@ -1,1 +1,1 @@
-# weather-app
+# weather-app using Vanilla Javascript constructor & modular pattern, API
