@@ -1,0 +1,24 @@
+{
+  "name": "WeatherApp_Using-PlaneObject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "parcel index.htm",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FazlyRabbi/WeatherApp_Using-PlaneObject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FazlyRabbi/WeatherApp_Using-PlaneObject/issues"
+  },
+  "homepage": "https://github.com/FazlyRabbi/WeatherApp_Using-PlaneObject#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
