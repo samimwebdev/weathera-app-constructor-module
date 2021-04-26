@@ -108,7 +108,6 @@ function UI() {
   this.setMassege = function (mag) {
     const { para } = this.selectors()
 
-    setTimeout(() => { }, 1000)
     const div = document.createElement('div')
     div.id = 'message'
 
@@ -125,12 +124,16 @@ function UI() {
     div.appendChild(icon)
 
     icon.style.cursor = 'pointer'
+
+    setTimeout(() => {
+      div.querySelector('#close').parentElement.parentElement.remove()
+    }, 2000)
   }
 
   this.closeMassege = function () {
     const { massegeWrapper } = this.selectors()
     massegeWrapper.addEventListener('click', e => {
-      if (e.target.id = 'icon') {
+      if (e.target.id = 'close') {
         e.target.parentElement.parentElement.remove()
       }
     })
@@ -171,10 +174,10 @@ function Weather() {
   this.city = 'Gazipur'
   this.country = 'BD'
   const APPId = '00687502f6fed1a6cce0582a4a77c1ce'
-
+  const $this = this
   const getWeather = async function () {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${this.city},${this.country}&appid=${APPId}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${$this.city},${$this.country}&appid=${APPId}&units=metric`
     )
     const responseData = await response.json()
 
@@ -194,7 +197,6 @@ function Weather() {
   this.weatherData = function () {
     getWeather()
       .then(data => {
-        console.log()
         ui.print(data)
       })
       .catch(err => {
