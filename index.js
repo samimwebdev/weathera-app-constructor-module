@@ -1,22 +1,29 @@
-//UI
-//Storage
-const storage = {
-  save(city, country) {
+function Storage() {
+  this.save = function (city, country) {
     localStorage.setItem('city', city)
     localStorage.setItem('country', country)
-  },
-  getData() {
+  }
+
+  this.getData = function () {
     const city = localStorage.getItem('city')
     const country = localStorage.getItem('country')
     return { city, country }
   }
 }
 
-//function with less parameter is more easy to handle
-const http = {
-  city: 'Chandpur',
-  country: 'BD',
-  async getWeatherData() {
+function Http() {
+  const ui = new UI()
+
+  this.city = 'Chandpur'
+  this.country = 'BD'
+
+  this.getWeatherData = async function () {
+    if (!this.city) {
+      this.city = 'chandpur'
+    }
+    if (!this.country) {
+      this.country = 'BD'
+    }
     try {
       const api_key = 'b6f9d9db9a5d8afcb113312a99248002'
       const res = await fetch(
@@ -25,19 +32,19 @@ const http = {
       const data = await res.json()
 
       if (data.cod === '404' && data.message) {
-        UI.showMessage(data.message)
+        ui.showMessage(data.message)
         return
       }
 
-      UI.paint(data)
+      ui.paint(data)
     } catch (err) {
-      UI.showMessage(err.message)
+      ui.showMessage(err.message)
     }
   }
 }
 
-const UI = {
-  loadSelectors() {
+function UI() {
+  this.loadSelectors = function () {
     const messageElm = document.querySelector('#messageWrapper')
     const countryInputElm = document.querySelector('#country')
     const cityInputElm = document.querySelector('#city')
@@ -60,8 +67,8 @@ const UI = {
       feelElm,
       humidityElm
     }
-  },
-  showMessage(msg) {
+  }
+  this.showMessage = function (msg) {
     const { messageElm } = this.loadSelectors()
 
     const elm = `<div id="message" class="alert alert-danger d-flex">
@@ -78,19 +85,19 @@ const UI = {
       //hiding the message
       this.hideMessage()
     }
-  },
-  hideMessageInst() {
+  }
+  this.hideMessageInst = function () {
     const msgInnerElm = document.querySelector('#message')
 
     msgInnerElm.remove()
-  },
-  hideMessage() {
+  }
+  this.hideMessage = function () {
     const msgInnerElm = document.querySelector('#message')
     setTimeout(() => {
       msgInnerElm.remove()
     }, 5000)
-  },
-  paint(weatherData) {
+  }
+  this.paint = function (weatherData) {
     const {
       name,
       main: { pressure, temp, humidity }
@@ -116,55 +123,60 @@ const UI = {
     cityElm.textContent = name
     //setting up icon
     iconElm.setAttribute('src', iconUrl)
-  },
-  resetInput() {
+  }
+  this.resetInput = function () {
     const { cityInputElm, countryInputElm } = this.loadSelectors()
     cityInputElm.value = ''
     countryInputElm.value = ''
-  },
-  init() {
-    const {
-      BtnElm,
-      cityInputElm,
-      countryInputElm,
-      messageElm
-    } = this.loadSelectors()
-
-    BtnElm.addEventListener('click', e => {
-      //prevent form submission
-      e.preventDefault()
-
-      const city = cityInputElm.value
-      const country = countryInputElm.value
-      if (city === '' || country === '') {
-        //show error message
-        this.showMessage('Please fill up the required field')
-      } else {
-        http.city = city
-        http.country
-        http.getWeatherData()
-        this.resetInput()
-        //save city and country to localStorage
-        storage.save(city, country)
-      }
-    })
-
-    messageElm.addEventListener('click', e => {
-      if (e.target.id === 'close') {
-        this.hideMessageInst()
-      }
-    })
-    //DOM content loaded
-    window.addEventListener('DOMContentLoaded', () => {
-      //getting saved data from localStorage
-      const { city, country } = storage.getData()
-
-      http.city = city
-      http.country = country
-
-      http.getWeatherData()
-    })
   }
+}
+
+UI.init = function () {
+  const storage = new Storage()
+  const http = new Http()
+  const ui = new UI()
+
+  const {
+    BtnElm,
+    cityInputElm,
+    countryInputElm,
+    messageElm
+  } = ui.loadSelectors()
+
+  BtnElm.addEventListener('click', e => {
+    //prevent form submission
+    e.preventDefault()
+
+    const city = cityInputElm.value
+    const country = countryInputElm.value
+    if (city === '' || country === '') {
+      //show error message
+      ui.showMessage('Please fill up the required field')
+    } else {
+      http.city = city
+      http.country
+      http.getWeatherData()
+      ui.resetInput()
+      //save city and country to localStorage
+      storage.save(city, country)
+    }
+  })
+
+  messageElm.addEventListener('click', e => {
+    if (e.target.id === 'close') {
+      ui.hideMessageInst()
+    }
+  })
+  //DOM content loaded
+  window.addEventListener('DOMContentLoaded', () => {
+    //getting saved data from localStorage
+    const { city, country } = storage.getData()
+
+    http.city = city
+    http.country = country
+
+    http.getWeatherData()
+  })
 }
 
 UI.init()
